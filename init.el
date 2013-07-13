@@ -104,3 +104,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'git-commit)
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Unicode shortcuts
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key (kbd "C-c u -") (lambda () (interactive) (ucs-insert "2013"))) ;;en-dash
+(global-set-key (kbd "C-c u _") (lambda () (interactive) (ucs-insert "2014"))) ;;em-dash
+(global-set-key (kbd "C-c u l") (lambda () (interactive) (ucs-insert "03BB"))) ;;lambda
