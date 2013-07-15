@@ -1,5 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
+(setq inhibit-splash-screen t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts and colors
