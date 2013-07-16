@@ -115,6 +115,8 @@
 (setq mac-function-modifier 'hyper)
 
 (global-set-key (kbd "s-b") 'compile)
+(global-unset-key (kbd "s-o"))
+(global-set-key (kbd "s-o") 'ff-find-other-file)
 
 ;;Unicode
 (global-set-key (kbd "C-c u -") (lambda () (interactive) (ucs-insert "2013"))) ;;en-dash
