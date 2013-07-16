@@ -108,8 +108,17 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Unicode shortcuts
+;; Keyboard shortcuts
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq mac-command-modifier 'super)
+(setq mac-function-modifier 'hyper)
+
+(global-set-key (kbd "s-b") 'compile)
+
+;;Unicode
 (global-set-key (kbd "C-c u -") (lambda () (interactive) (ucs-insert "2013"))) ;;en-dash
 (global-set-key (kbd "C-c u _") (lambda () (interactive) (ucs-insert "2014"))) ;;em-dash
 (global-set-key (kbd "C-c u l") (lambda () (interactive) (ucs-insert "03BB"))) ;;lambda
+(global-set-key (kbd "C-c u c") (lambda () (interactive) (ucs-insert "2318"))) ;;Mac command symbol
+
