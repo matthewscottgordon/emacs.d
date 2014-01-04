@@ -75,6 +75,7 @@
 
 (load "haskell-mode/haskell-site-file.el")
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook (lambda () (linum-mode 1)))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-font-lock)
