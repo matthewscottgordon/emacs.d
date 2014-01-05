@@ -117,8 +117,12 @@
 ;; Keyboard shortcuts
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 (setq mac-command-modifier 'super)
 (setq mac-function-modifier 'hyper)
+
+(global-set-key (kbd "C-s-|") (lambda () (interactive) (split-window-horizontally 100)))
+(global-set-key (kbd "C-s-/") (lambda () (interactive) (split-window-horizontally 80)))
 
 (global-set-key (kbd "s-b") 'compile)
 (global-unset-key (kbd "s-o"))
