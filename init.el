@@ -48,6 +48,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 (add-hook 'c++-mode-hook '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
+(add-hook 'c++-mode-hook (lambda () (linum-mode 1)))
 
 
 
