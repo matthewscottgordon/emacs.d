@@ -131,7 +131,8 @@
 (global-set-key (kbd "C-s-|") (lambda () (interactive) (split-window-horizontally 100)))
 (global-set-key (kbd "C-s-/") (lambda () (interactive) (split-window-horizontally 80)))
 
-(global-set-key (kbd "s-b") 'compile)
+(global-set-key (kbd "s-B") 'compile)
+(global-set-key (kbd "s-b") 'recompile)
 (global-unset-key (kbd "s-o"))
 (global-set-key (kbd "s-o") 'ff-find-other-file)
 (global-set-key (kbd "s-r") 'revert-buffer)
