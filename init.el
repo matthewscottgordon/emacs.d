@@ -84,16 +84,14 @@
 ;; Haskell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
+(add-to-list 'exec-path "~/.cabal/bin")
+(custom-set-variables '(haskell-tags-on-save t))
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook (lambda () (linum-mode 1)))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;;(add-hook 'haskell-mode-hook '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-font-lock)
-;;(setq haskell-program-name "ghci -XFlexibleContexts")
-(setq haskell-program-name "cabal-dev ghci")
-
-(autoload 'ghc-init "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(custom-set-variables
+  '(haskell-process-type 'cabal-repl))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
