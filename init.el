@@ -1,3 +1,8 @@
+(require 'package)
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
 (setq inhibit-splash-screen t)
@@ -11,7 +16,6 @@
 ;; Fonts and colors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/site-lisp/emacs-color-theme-solarized")
 (load-theme 'solarized-dark t)
 
 (global-hl-line-mode 1)
@@ -80,7 +84,6 @@
 ;; Haskell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load "haskell-mode/haskell-site-file.el")
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 (add-hook 'haskell-mode-hook (lambda () (linum-mode 1)))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
@@ -116,7 +119,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Git
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'git-commit)
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 
 
