@@ -51,9 +51,9 @@
 (add-to-list 'auto-mode-alist '("\\.pr[io]$" . qt-pro-mode))
 
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
-(add-hook 'c++-mode-hook '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
-(add-hook 'c++-mode-hook (lambda () (linum-mode 1)))
-(add-hook 'c++-mode-hook (lambda () (setq indent-tabs-mode nil)))
+(add-hook 'c-mode-common-hook '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
+(add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
+(add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
