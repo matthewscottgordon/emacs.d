@@ -17,7 +17,7 @@
 ;; Check if packages are installed and download any that are missing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar my-packages
-  '(solarized-theme glsl-mode ghc color-theme haskell-mode)
+  '(clang-format solarized-theme glsl-mode ghc color-theme haskell-mode)
   "A list of packages to ensure are installed at launch.")
 
 (require 'cl-lib)
@@ -78,6 +78,11 @@
 (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
 (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode nil)))
 (add-hook 'c-mode-common-hook 'flyspell-prog-mode)
+
+(require 'clang-format)
+(global-set-key (kbd "s-F") 'clang-format-buffer)
+
+(setq clang-format-style-option "llvm")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
