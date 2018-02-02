@@ -12,6 +12,29 @@
 
 (setq column-number-mode t)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Check if packages are installed and download any that are missing
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar my-packages
+  '(solarized-theme glsl-mode ghc color-theme haskell-mode)
+  "A list of packages to ensure are installed at launch.")
+
+(require 'cl-lib)
+
+(defun my-packages-installed-p ()
+  (cl-loop for p in my-packages
+           when (not (package-installed-p p)) do (cl-return nil)
+           finally (cl-return t)))
+
+(unless (my-packages-installed-p)
+  ;; check for new packages (package versions)
+  (package-refresh-contents)
+  ;; install the missing packages
+  (dolist (p my-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts and colors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
