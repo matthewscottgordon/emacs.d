@@ -82,7 +82,7 @@
 (require 'clang-format)
 (global-set-key (kbd "s-F") 'clang-format-buffer)
 
-(setq clang-format-style-option "llvm")
+(setq clang-format-style-option "file")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
