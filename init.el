@@ -164,8 +164,12 @@
 (setq mac-command-modifier 'super)
 (setq mac-function-modifier 'hyper)
 
-(global-set-key (kbd "C-s-|") (lambda () (interactive) (split-window-horizontally 100)))
-(global-set-key (kbd "C-s-/") (lambda () (interactive) (split-window-horizontally 80)))
+(global-set-key (kbd "C-s-|")
+                (lambda () (interactive) (split-window-horizontally 90)))
+(global-set-key (kbd "C-s-#")
+                (lambda () (interactive) (set-frame-width (selected-frame) 273)
+                  (select-window (split-window-horizontally 90))
+                  (split-window-horizontally 90)))
 
 (global-set-key (kbd "s-B") 'compile)
 (global-set-key (kbd "s-b") 'recompile)
