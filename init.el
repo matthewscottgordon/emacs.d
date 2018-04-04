@@ -16,11 +16,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Check if packages are installed and download any that are missing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar my-packages
-  '(clang-format solarized-theme glsl-mode ghc color-theme haskell-mode markdown-mode)
-  "A list of packages to ensure are installed at launch.")
-
+(require 'cl)      ; csharp-mode won't work right without this here
 (require 'cl-lib)
+
+(defvar my-packages
+  '(clang-format solarized-theme glsl-mode ghc color-theme haskell-mode markdown-mode
+                 csharp-mode)
+  "A list of packages to ensure are installed at launch.")
 
 (defun my-packages-installed-p ()
   (cl-loop for p in my-packages
