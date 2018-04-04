@@ -17,7 +17,7 @@
 ;; Check if packages are installed and download any that are missing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar my-packages
-  '(clang-format solarized-theme glsl-mode ghc color-theme haskell-mode)
+  '(clang-format solarized-theme glsl-mode ghc color-theme haskell-mode markdown-mode)
   "A list of packages to ensure are installed at launch.")
 
 (require 'cl-lib)
