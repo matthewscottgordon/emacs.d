@@ -193,3 +193,7 @@
 (global-set-key (kbd "C-c u l") (lambda () (interactive) (insert "λ"))) ;;lambda
 (global-set-key (kbd "C-c u c") (lambda () (interactive) (insert "⌘"))) ;;Mac command symbol
 
+
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
