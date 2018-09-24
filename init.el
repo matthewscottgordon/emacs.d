@@ -20,8 +20,8 @@
 (require 'cl-lib)
 
 (defvar my-packages
-  '(clang-format solarized-theme glsl-mode ghc color-theme haskell-mode markdown-mode
-                 csharp-mode)
+  '(yasnippet clang-format solarized-theme glsl-mode ghc color-theme haskell-mode
+              markdown-mode csharp-mode irony)
   "A list of packages to ensure are installed at launch.")
 
 (defun my-packages-installed-p ()
@@ -80,6 +80,10 @@
 (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
 (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode nil)))
 (add-hook 'c-mode-common-hook 'flyspell-prog-mode)
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 (require 'clang-format)
 (global-set-key (kbd "s-F") 'clang-format-buffer)
