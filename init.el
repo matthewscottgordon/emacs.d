@@ -21,7 +21,7 @@
 
 (defvar my-packages
   '(yasnippet clang-format solarized-theme glsl-mode ghc color-theme haskell-mode
-              markdown-mode csharp-mode irony)
+              markdown-mode csharp-mode irony rust-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun my-packages-installed-p ()
