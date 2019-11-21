@@ -48,7 +48,7 @@
 
 (if (string-match "darwin" system-configuration)
     (setq my-font "Inconsolata-11")
-  (setq my-font "Inconsolata-9"))
+  (setq my-font "Inconsolata-10"))
 
 (defun fontify-frame (frame)
   (set-frame-parameter frame 'font my-font))
