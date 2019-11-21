@@ -86,7 +86,7 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 (require 'clang-format)
-(global-set-key (kbd "s-F") 'clang-format-buffer)
+(global-set-key (kbd "c-c c-f") 'clang-format-buffer)
 
 (setq clang-format-style-option "file")
 
