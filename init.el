@@ -183,6 +183,11 @@
                 (lambda () (interactive) (set-frame-width (selected-frame) 273)
                   (select-window (split-window-horizontally 90))
                   (split-window-horizontally 90)))
+(global-set-key (kbd "C-s-$")
+                (lambda () (interactive) (set-frame-width (selected-frame) 365)
+                  (select-window (split-window-horizontally 92))
+                  (select-window (split-window-horizontally 92))
+                  (split-window-horizontally 92)))
 
 (global-set-key (kbd "s-B") 'compile)
 (global-set-key (kbd "s-b") 'recompile)
