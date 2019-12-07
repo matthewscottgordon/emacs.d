@@ -46,9 +46,7 @@
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#ddd")
 
-(if (string-match "darwin" system-configuration)
-    (setq my-font "Inconsolata-11")
-  (setq my-font "Inconsolata-9"))
+(setq my-font "Inconsolata-12")
 
 (defun fontify-frame (frame)
   (set-frame-parameter frame 'font my-font))
