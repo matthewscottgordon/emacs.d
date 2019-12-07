@@ -84,7 +84,7 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 (require 'clang-format)
-(global-set-key (kbd "s-F") 'clang-format-buffer)
+(global-set-key (kbd "c-c c-f") 'clang-format-buffer)
 
 (setq clang-format-style-option "file")
 
@@ -181,6 +181,11 @@
                 (lambda () (interactive) (set-frame-width (selected-frame) 273)
                   (select-window (split-window-horizontally 90))
                   (split-window-horizontally 90)))
+(global-set-key (kbd "C-s-$")
+                (lambda () (interactive) (set-frame-width (selected-frame) 365)
+                  (select-window (split-window-horizontally 92))
+                  (select-window (split-window-horizontally 92))
+                  (split-window-horizontally 92)))
 
 (global-set-key (kbd "s-B") 'compile)
 (global-set-key (kbd "s-b") 'recompile)
