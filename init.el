@@ -46,7 +46,7 @@
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#ddd")
 
-(setq my-font "Inconsolata-12")
+(setq my-font "Inconsolata-14")
 
 (defun fontify-frame (frame)
   (set-frame-parameter frame 'font my-font))
