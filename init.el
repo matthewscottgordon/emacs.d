@@ -20,7 +20,7 @@
 (require 'cl-lib)
 
 (defvar my-packages
-  '(yasnippet clang-format solarized-theme glsl-mode ghc color-theme haskell-mode
+  '(yasnippet clang-format dakrone-light-theme glsl-mode ghc color-theme haskell-mode
               markdown-mode csharp-mode irony rust-mode)
   "A list of packages to ensure are installed at launch.")
 
@@ -41,7 +41,7 @@
 ;; Fonts and colors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load-theme 'solarized-dark t)
+(load-theme 'dakrone-light t)
 
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#ddd")
