@@ -1,9 +1,29 @@
 (require 'package)
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.org/packages/") t)
+
+(setq package-archives
+      '(("org"     .       "https://orgmode.org/elpa/")
+        ("gnu"     .       "https://elpa.gnu.org/packages/")
+        ("melpa"   .       "https://melpa.org/packages/")))
+
 (package-initialize)
+#(package-refresh-contents)
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(require 'use-package)
+
+(setq use-package-always-ensure t)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
+
+(use-package which-key
+  :diminish
+  :config
+  (which-key-mode))
+
+(require 'uniquify)
+(setq uniquify-separator "/"               ;; The separator in buffer names.
+      uniquify-buffer-name-style 'forward) ;; names/in/this/style
 
 (setq inhibit-splash-screen t)
 
@@ -16,31 +36,32 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Check if packages are installed and download any that are missing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'cl)      ; csharp-mode won't work right without this here
-(require 'cl-lib)
+;;(require 'cl)      ; csharp-mode won't work right without this here
+;;(require 'cl-lib)
 
-(defvar my-packages
-  '(yasnippet clang-format dakrone-light-theme glsl-mode ghc color-theme haskell-mode
-              markdown-mode csharp-mode irony rust-mode)
-  "A list of packages to ensure are installed at launch.")
+;; (defvar my-packages
+;;   '(yasnippet clang-format dakrone-light-theme glsl-mode ghc color-theme haskell-mode
+;;               markdown-mode irony flycheck-mode company)
+;;   "A list of packages to ensure are installed at launch.")
 
-(defun my-packages-installed-p ()
-  (cl-loop for p in my-packages
-           when (not (package-installed-p p)) do (cl-return nil)
-           finally (cl-return t)))
+;; (defun my-packages-installed-p ()
+;;   (cl-loop for p in my-packages
+;;            when (not (package-installed-p p)) do (cl-return nil)
+;;            finally (cl-return t)))
 
-(unless (my-packages-installed-p)
-  ;; check for new packages (package versions)
-  (package-refresh-contents)
-  ;; install the missing packages
-  (dolist (p my-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
+;; (unless (my-packages-installed-p)
+;;   ;; check for new packages (package versions)
+;;   (package-refresh-contents)
+;;   ;; install the missing packages
+;;   (dolist (p my-packages)
+;;     (when (not (package-installed-p p))
+;;       (package-install p))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts and colors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package dakrone-light-theme)
 (load-theme 'dakrone-light t)
 
 (global-hl-line-mode 1)
@@ -62,8 +83,22 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Rust
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package flycheck)
+(use-package helm)
+(use-package rustic
+  :bind (("s-f" . rustic-format-file)))
+(use-package lsp-ui)
+(use-package helm-lsp)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C, C++ and Qt
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package clang-format)
+(use-package irony)
 
 (setq c-default-style "python")
 (setq c-basic-offset 4)
@@ -89,18 +124,19 @@
 (setq clang-format-style-option "file")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C#
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(add-hook 'csharp-mode-hook (lambda () (linum-mode 1)))
-(add-hook 'csharp-mode-hook (lambda () (setq indent-tabs-mode nil)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package glsl-mode)
 (autoload 'glsl-mode "glsl-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
 (add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Markdown
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package markdown-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org Mode
@@ -124,14 +160,24 @@
 ;; Haskell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package haskell-mode)
 (setenv "PATH" (concat "~/.cabal/bin:" (getenv "PATH")))
 (add-to-list 'exec-path "~/.cabal/bin")
-(custom-set-variables '(haskell-tags-on-save t))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(haskell-process-type (quote cabal-repl))
+ '(haskell-tags-on-save t)
+ '(package-selected-packages
+   (quote
+    (racer separedit cargo flycheck-rust use-package yasnippet solarized-theme rust-mode markdown-mode irony greymatters-theme glsl-mode ghc dakrone-light-theme csharp-mode color-theme clang-format avk-emacs-themes)))
+ '(tool-bar-mode nil))
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook (lambda () (linum-mode 1)))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-(custom-set-variables
-  '(haskell-process-type 'cabal-repl))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -143,12 +189,7 @@
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 
 
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(tool-bar-mode nil))
+
 
 (defun show-file-name ()
   "Show the full path of the file in the minibuffer."
@@ -204,3 +245,9 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
