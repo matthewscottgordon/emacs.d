@@ -1,3 +1,6 @@
+(setq frame-inhibit-implied-resize t) ;; prevent resize window on startup
+(setq default-frame-alist '((width . 80) (height . 30)))
+
 (require 'package)
 
 (setq package-archives
