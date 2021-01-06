@@ -6,7 +6,7 @@
         ("melpa"   .       "https://melpa.org/packages/")))
 
 (package-initialize)
-#(package-refresh-contents)
+;;(package-refresh-contents)
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
