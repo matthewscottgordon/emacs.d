@@ -86,6 +86,7 @@
 ;; Rust
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package lsp-mode)
 (use-package flycheck)
 (use-package helm)
 (use-package rustic
