@@ -50,7 +50,8 @@
                             (setq-local show-trailing-whitespace nil)))
 
 (use-package ace-window)
-(global-set-key (kbd "M-o") 'ace-window)
+(global-set-key (kbd "C-x o") 'ace-window)
+(global-set-key (kbd "C-c o") 'ace-window)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts and colors
