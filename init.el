@@ -1,5 +1,6 @@
 (setq frame-inhibit-implied-resize t) ;; prevent resize window on startup
 (setq default-frame-alist '((width . 80) (height . 30)))
+(tool-bar-mode -1)
 
 (require 'package)
 
