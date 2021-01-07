@@ -45,6 +45,8 @@
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
 (setq-default show-trailing-whitespace 't)
+(add-hook 'term-mode-hook (lambda ()
+                            (setq-local show-trailing-whitespace nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts and colors
