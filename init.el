@@ -53,6 +53,9 @@
 (global-set-key (kbd "C-x o") 'ace-window)
 (global-set-key (kbd "C-c o") 'ace-window)
 
+(require 'wsl-path)
+(wsl-path-activate)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts and colors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
