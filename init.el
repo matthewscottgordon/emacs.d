@@ -83,7 +83,7 @@
 ;; Rust
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'rust-mode)
+(use-package rust-mode)
 (add-hook 'rust-mode-hook
           (lambda () (setq indent-tabs-mode nil)))
 
@@ -91,7 +91,7 @@
 ;; Svelte
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'svelte-mode)
+(use-package svelte-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C, C++ and Qt
@@ -119,7 +119,7 @@
 
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-(require 'clang-format)
+(use-package clang-format)
 (global-set-key (kbd "C-c C-f") 'clang-format-buffer)
 
 (setq clang-format-style-option "file")
@@ -216,3 +216,10 @@
 (global-set-key (kbd "C-c u c")
                 (lambda () (interactive) (insert "⌘"))) ;;Mac command symbol
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs settings file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq custom-file "~/.emacs.d/customize.el")
+(load custom-file :noerror)
