@@ -45,16 +45,9 @@
 (setq recentf-max-menu-items 25)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
-(setq-default show-trailing-whitespace 't)
-(add-hook 'term-mode-hook (lambda ()
-                            (setq-local show-trailing-whitespace nil)))
-
 (use-package ace-window)
 (global-set-key (kbd "C-x o") 'ace-window)
 (global-set-key (kbd "C-c o") 'ace-window)
-
-(require 'wsl-path)
-(wsl-path-activate)
 
 (setq-default tab-width 4)
 (setq-default indent-tab-mode nil)
@@ -245,3 +238,9 @@
 (global-set-key (kbd "C-c u c")
                 (lambda () (interactive) (insert "⌘"))) ;;Mac command symbol
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Local settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(let ((local-settings "~/.emacs.d/local.el"))
+  (when (file-exists-p local-settings)
+	(load local-settings)))
