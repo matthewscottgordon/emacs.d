@@ -81,6 +81,8 @@
 (setq tramp-default-method "ssh")
 
 
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Rust
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -94,35 +96,42 @@
 (use-package helm-lsp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C, C++ and Qt
+;; C, C++, CMake and Qt
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package clang-format)
-(use-package irony)
 
-(setq c-default-style "python")
-(setq c-basic-offset 4)
-(setq-default tab-width 4)
-(setq-default indent-tabs-mode nil)
+;; (use-package clang-format)
+;; (use-package irony)
 
-(require 'qt-pro)
-(add-to-list 'auto-mode-alist '("\\.pr[io]$" . qt-pro-mode))
+;; (setq c-default-style "python")
+;; (setq c-basic-offset 4)
+;; (setq-default tab-width 4)
+;; (setq-default indent-tabs-mode nil)
 
-(add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
-(add-hook 'c-mode-common-hook
-          '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
+;; (require 'qt-pro)
+;; (add-to-list 'auto-mode-alist '("\\.pr[io]$" . qt-pro-mode))
+
+;; (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
+;; (add-hook 'c-mode-common-hook
+;;           '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
+;; (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
+;; (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode nil)))
+;; (add-hook 'c-mode-common-hook 'flyspell-prog-mode)
+;; (add-hook 'c++-mode-hook 'irony-mode)
+;; (add-hook 'c-mode-hook 'irony-mode)
+
+;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
 (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
-(add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode nil)))
-(add-hook 'c-mode-common-hook 'flyspell-prog-mode)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 (require 'clang-format)
-(global-set-key (kbd "C-c C-f") 'clang-format-buffer)
+(add-hook 'c-mode-common-hook
+          (lambda () (local-set-key (kbd "C-c C-f") 'clang-format-buffer)))
 
+(setq clang-format-executable "/usr/bin/clang-format-11")
 (setq clang-format-style-option "file")
+
+(setq cmake-tab-width 4)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
