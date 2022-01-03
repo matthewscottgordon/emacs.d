@@ -103,13 +103,15 @@
 ;; Rust
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package lsp-mode)
-(use-package flycheck)
-(use-package helm)
-(use-package rustic
-  :bind (("s-f" . rustic-format-file)))
-(use-package lsp-ui)
-(use-package helm-lsp)
+(require 'rust-mode)
+(add-hook 'rust-mode-hook
+          (lambda () (setq indent-tabs-mode nil)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Svelte
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'svelte-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C, C++, CMake and Qt
