@@ -106,6 +106,39 @@
           (lambda () (setq indent-tabs-mode nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Typescript and React
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Define typescript-tsx-mode
+;; This was taken from a github issue form emacs-typescript; there's a PR to
+;; merge a version of this code into typescript-mode itself so I should be able
+;; to remove it from here in the future.
+;; https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
+;; https://github.com/emacs-typescript/typescript.el/pull/155
+
+(use-package typescript-mode
+  :ensure t
+  :init
+  (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
+  :config
+  (setq typescript-indent-level 2)
+  (add-hook 'typescript-mode #'subword-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode)))
+
+(use-package tree-sitter
+  :ensure t
+  :hook ((typescript-mode . tree-sitter-hl-mode)
+	 (typescript-tsx-mode . tree-sitter-hl-mode)))
+
+(use-package tree-sitter-langs
+  :ensure t
+  :after tree-sitter
+  :config
+  (tree-sitter-require 'tsx)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Svelte
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
