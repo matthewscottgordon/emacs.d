@@ -5,9 +5,7 @@
 (require 'package)
 
 (setq package-archives
-      '(("org"     .       "https://orgmode.org/elpa/")
-        ("gnu"     .       "https://elpa.gnu.org/packages/")
-        ("melpa"   .       "https://melpa.org/packages/")))
+      '(("melpa"   .       "https://melpa.org/packages/")))
 
 (package-initialize)
 ;;(package-refresh-contents)
@@ -103,7 +101,7 @@
 ;; Rust
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'rust-mode)
+(use-package rust-mode)
 (add-hook 'rust-mode-hook
           (lambda () (setq indent-tabs-mode nil)))
 
@@ -111,7 +109,7 @@
 ;; Svelte
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'svelte-mode)
+(use-package svelte-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C, C++, CMake and Qt
@@ -240,9 +238,14 @@
 (global-set-key (kbd "C-c u c")
                 (lambda () (interactive) (insert "⌘"))) ;;Mac command symbol
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Local settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (let ((local-settings "~/.emacs.d/local.el"))
   (when (file-exists-p local-settings)
 	(load local-settings)))
+
+(setq custom-file "~/.emacs.d/customize.el")
+(load custom-file :noerror)
+
