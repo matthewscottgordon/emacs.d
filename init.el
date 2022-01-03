@@ -60,6 +60,26 @@
 (setq-default indent-tab-mode nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+(setq org-agenda-files (list "~/org/work.org"
+							 "~/org/refile.org"))
+(setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)"))))
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-capture-templates
+	  (quote (("t" "To-do" (file "~/org/refile.org")
+			   "* TODO %?\n%U\n" :clock-in t :clock-resume t)
+			  ("c" "Call" (file "~/org/refile.org")
+			   "* Call: %U %?" :clock-in t :clock-resume t)
+			  ("j" "Journal" (file "~/org/refile.org")
+			   "* %? %U" :clock-in t :clock-resume t))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts and colors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -150,16 +170,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package markdown-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Org Mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(add-hook 'org-mode-hook 'visual-line-mode)
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
-(setq org-directory        "~/Dropbox/Org")
-(setq org-mobile-inbox-for-pull "~/Dropbox/Org/from-mobile.org" )
-(setq org-log-done 'time)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
