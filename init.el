@@ -63,12 +63,13 @@
 (setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)"))))
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
-	  (quote (("t" "To-do" (file "~/org/refile.org")
+	  (quote (("t" "To-do" entry (file "~/org/refile.org")
 			   "* TODO %?\n%U\n" :clock-in t :clock-resume t)
-			  ("c" "Call" (file "~/org/refile.org")
+			  ("c" "Call" entry (file "~/org/refile.org")
 			   "* Call: %U %?" :clock-in t :clock-resume t)
-			  ("j" "Journal" (file "~/org/refile.org")
+			  ("j" "Journal" entry (file "~/org/refile.org")
 			   "* %? %U" :clock-in t :clock-resume t))))
+(setq org-clock-out-when-done t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts and colors
