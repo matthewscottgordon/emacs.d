@@ -200,14 +200,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package markdown-mode)
-(setq markdown-command
-      (concat
-       "pandoc"
-       " --from=gfm --to=html"
-       " --quiet"
-       ))
-(setq browse-url-browser-function 'eww-browse-url)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; .plist
