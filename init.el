@@ -231,6 +231,7 @@
 ;; Shell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'term-mode-hook 'compilation-shell-minor-mode)
+(add-hook 'term-mode-hook (lambda () (setq term-buffer-maximum-size 0)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keyboard shortcuts
