@@ -92,8 +92,8 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
-(setq org-agenda-files (list "~/org/journal.org"
-							 "~/org/refile.org"))
+(setq org-agenda-files (list "~/org/personal.org"
+							 "~/org/work.org"))
 (setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)"))))
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
@@ -114,13 +114,6 @@
 
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#ddd")
-
-(setq my-font "Inconsolata-14")
-
-(defun fontify-frame (frame)
-  (set-frame-parameter frame 'font my-font))
-(fontify-frame nil) ;;Set font for current frame
-(push 'fontify-frame after-make-frame-functions) ;;Set font for future frames.
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
