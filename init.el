@@ -68,6 +68,22 @@
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+(load "server")
+(unless (server-running-p) (server-start))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; LSP
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package lsp-mode
+  :ensure t
+  :bind-keymap
+  ("C-c l" . lsp-command-map)
+  :custom
+  (lsp-keymap-prefix "C-c l"))
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -164,44 +180,36 @@
 (use-package svelte-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C, C++, CMake and Qt
+;; C, C++, CMake
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;; (use-package clang-format)
-;; (use-package irony)
-
-;; (setq c-default-style "python")
-;; (setq c-basic-offset 4)
-;; (setq-default tab-width 4)
-;; (setq-default indent-tabs-mode nil)
-
-;; (require 'qt-pro)
-;; (add-to-list 'auto-mode-alist '("\\.pr[io]$" . qt-pro-mode))
-
-;; (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
-;; (add-hook 'c-mode-common-hook
-;;           '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
-;; (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
-;; (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode nil)))
-;; (add-hook 'c-mode-common-hook 'flyspell-prog-mode)
-;; (add-hook 'c++-mode-hook 'irony-mode)
-;; (add-hook 'c-mode-hook 'irony-mode)
-
-;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
+(add-hook 'c-mode-hook `lsp)
+(add-hook 'c++-mode-hook `lsp)
 (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
-
-(require 'clang-format)
-(add-hook 'c-mode-common-hook
-          (lambda () (local-set-key (kbd "C-c C-f") 'clang-format-buffer)))
-
-(setq clang-format-executable "/usr/bin/clang-format-11")
-(setq clang-format-style-option "file")
 
 (setq cmake-tab-width 4)
 
 (add-hook 'c++-mode-hook (lambda () (load "mg-c++-mock-interface")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C#
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setenv "FrameworkPathOverride" "/Library/Frameworks/Mono.framework")
+
+;; If it asks about an available LSP server, enter "omnisharp"
+(use-package csharp-mode
+  :init
+  (defun my/csharp-mode-hook ()
+    (setq-local lsp-auto-guess-root t)
+    (lsp))
+  (add-hook 'csharp-mode-hook #'my/csharp-mode-hook)
+  (add-hook 'csharp-mode-hook
+			(lambda () (setq indent-tabs-mode nil))))
+
+(straight-use-package
+ '(unity :type git :host github :repo "elizagamedev/unity.el"))
+(add-hook 'after-init-hook #'unity-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
