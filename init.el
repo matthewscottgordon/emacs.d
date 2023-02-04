@@ -2,19 +2,30 @@
 (setq default-frame-alist '((width . 80) (height . 30)))
 (tool-bar-mode -1)
 
-(require 'package)
+(setq straight-use-package-by-default t)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+;(setq package-archives
+;      '(("melpa"   .       "https://melpa.org/packages/")
+;		("gnu"     .       "https://elpa.gnu.org/packages/")
+;		("nongnu"  .       "https://elpa.nongnu.org/packages/")))
 
-(setq package-archives
-      '(("melpa"   .       "https://melpa.org/packages/")))
+;(package-initialize)
+;(package-refresh-contents)
 
-(package-initialize)
-;;(package-refresh-contents)
+(straight-use-package 'use-package)
 
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-(require 'use-package)
-
-(setq use-package-always-ensure t)
+;(setq use-package-always-ensure t)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
@@ -57,6 +68,22 @@
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+(load "server")
+(unless (server-running-p) (server-start))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; LSP
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package lsp-mode
+  :ensure t
+  :bind-keymap
+  ("C-c l" . lsp-command-map)
+  :custom
+  (lsp-keymap-prefix "C-c l"))
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -66,8 +93,8 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
-(setq org-agenda-files (list "~/org/journal.org"
-							 "~/org/refile.org"))
+(setq org-agenda-files (list "~/org/personal.org"
+							 "~/org/work.org"))
 (setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)"))))
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
@@ -97,8 +124,6 @@
 (setq tramp-default-method "ssh")
 
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Rust
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -119,7 +144,6 @@
 ;; https://github.com/emacs-typescript/typescript.el/pull/155
 
 (use-package typescript-mode
-  :ensure t
   :init
   (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
   :config
@@ -128,12 +152,10 @@
   (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode)))
 
 (use-package tree-sitter
-  :ensure t
   :hook ((typescript-mode . tree-sitter-hl-mode)
 	 (typescript-tsx-mode . tree-sitter-hl-mode)))
 
 (use-package tree-sitter-langs
-  :ensure t
   :after tree-sitter
   :config
   (tree-sitter-require 'tsx)
@@ -150,42 +172,36 @@
 (use-package svelte-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C, C++, CMake and Qt
+;; C, C++, CMake
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;; (use-package clang-format)
-;; (use-package irony)
-
-;; (setq c-default-style "python")
-;; (setq c-basic-offset 4)
-;; (setq-default tab-width 4)
-;; (setq-default indent-tabs-mode nil)
-
-;; (require 'qt-pro)
-;; (add-to-list 'auto-mode-alist '("\\.pr[io]$" . qt-pro-mode))
-
-;; (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
-;; (add-hook 'c-mode-common-hook
-;;           '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
-;; (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
-;; (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode nil)))
-;; (add-hook 'c-mode-common-hook 'flyspell-prog-mode)
-;; (add-hook 'c++-mode-hook 'irony-mode)
-;; (add-hook 'c-mode-hook 'irony-mode)
-
-;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
+(add-hook 'c-mode-hook `lsp)
+(add-hook 'c++-mode-hook `lsp)
 (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
 
-(require 'clang-format)
-(add-hook 'c-mode-common-hook
-          (lambda () (local-set-key (kbd "C-c C-f") 'clang-format-buffer)))
-
-(setq clang-format-executable "/usr/bin/clang-format-11")
-(setq clang-format-style-option "file")
-
 (setq cmake-tab-width 4)
+
+(add-hook 'c++-mode-hook (lambda () (load "mg-c++-mock-interface")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C#
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setenv "FrameworkPathOverride" "/Library/Frameworks/Mono.framework")
+
+;; If it asks about an available LSP server, enter "omnisharp"
+(use-package csharp-mode
+  :init
+  (defun my/csharp-mode-hook ()
+    (setq-local lsp-auto-guess-root t)
+    (lsp))
+  (add-hook 'csharp-mode-hook #'my/csharp-mode-hook)
+  (add-hook 'csharp-mode-hook
+			(lambda () (setq indent-tabs-mode nil))))
+
+(straight-use-package
+ '(unity :type git :host github :repo "elizagamedev/unity.el"))
+(add-hook 'after-init-hook #'unity-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
@@ -200,15 +216,10 @@
 ;; Markdown
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package markdown-mode)
-(setq markdown-command
-      (concat
-       "pandoc"
-       " --from=gfm --to=html"
-       " --quiet"
-       ))
-(setq browse-url-browser-function 'eww-browse-url)
+(setq markdown-command "pandoc")
 
+(use-package markdown-mode)
+(use-package markdown-preview-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; .plist
@@ -221,9 +232,11 @@
 ;; Python
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'python-mode-hook '(lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
+(use-package py-autopep8)
+(add-hook 'python-mode-hook (lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
 (add-hook 'python-mode-hook (lambda () (linum-mode 1)))
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
+(add-hook 'python-mode-hook (lambda () (local-set-key (kbd "C-c C-f") 'py-autopep8-buffer)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -238,6 +251,7 @@
 ;; Shell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'term-mode-hook 'compilation-shell-minor-mode)
+(add-hook 'term-mode-hook (lambda () (setq term-buffer-maximum-size 0)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keyboard shortcuts
