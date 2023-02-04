@@ -2,19 +2,30 @@
 (setq default-frame-alist '((width . 80) (height . 30)))
 (tool-bar-mode -1)
 
-(require 'package)
+(setq straight-use-package-by-default t)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+;(setq package-archives
+;      '(("melpa"   .       "https://melpa.org/packages/")
+;		("gnu"     .       "https://elpa.gnu.org/packages/")
+;		("nongnu"  .       "https://elpa.nongnu.org/packages/")))
 
-(setq package-archives
-      '(("melpa"   .       "https://melpa.org/packages/")))
+;(package-initialize)
+;(package-refresh-contents)
 
-(package-initialize)
-;;(package-refresh-contents)
+(straight-use-package 'use-package)
 
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-(require 'use-package)
-
-(setq use-package-always-ensure t)
+;(setq use-package-always-ensure t)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
@@ -125,7 +136,6 @@
 ;; https://github.com/emacs-typescript/typescript.el/pull/155
 
 (use-package typescript-mode
-  :ensure t
   :init
   (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
   :config
@@ -134,12 +144,10 @@
   (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode)))
 
 (use-package tree-sitter
-  :ensure t
   :hook ((typescript-mode . tree-sitter-hl-mode)
 	 (typescript-tsx-mode . tree-sitter-hl-mode)))
 
 (use-package tree-sitter-langs
-  :ensure t
   :after tree-sitter
   :config
   (tree-sitter-require 'tsx)
