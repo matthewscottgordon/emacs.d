@@ -89,13 +89,6 @@
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#ddd")
 
-(setq my-font "Inconsolata-14")
-
-(defun fontify-frame (frame)
-  (set-frame-parameter frame 'font my-font))
-(fontify-frame nil) ;;Set font for current frame
-(push 'fontify-frame after-make-frame-functions) ;;Set font for future frames.
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tramp
