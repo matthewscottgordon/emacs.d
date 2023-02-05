@@ -128,9 +128,8 @@
 ;; Rust
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package rust-mode)
-(add-hook 'rust-mode-hook
-          (lambda () (setq indent-tabs-mode nil)))
+; This should use rust-analyser as the language server, not rls
+(use-package rustic)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Typescript and React
