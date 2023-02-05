@@ -15,17 +15,9 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-;(setq package-archives
-;      '(("melpa"   .       "https://melpa.org/packages/")
-;		("gnu"     .       "https://elpa.gnu.org/packages/")
-;		("nongnu"  .       "https://elpa.nongnu.org/packages/")))
-
-;(package-initialize)
-;(package-refresh-contents)
 
 (straight-use-package 'use-package)
 
-;(setq use-package-always-ensure t)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
