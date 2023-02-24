@@ -175,10 +175,8 @@
 (add-hook 'c++-mode-hook (lambda () (load "mg-c++-mock-interface")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C#
+;; C# & Unity Editor
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(setenv "FrameworkPathOverride" "/Library/Frameworks/Mono.framework")
 
 ;; If it asks about an available LSP server, enter "omnisharp"
 (use-package csharp-mode
@@ -193,6 +191,9 @@
 (straight-use-package
  '(unity :type git :host github :repo "elizagamedev/unity.el"))
 (add-hook 'after-init-hook #'unity-mode)
+
+(use-package dap-mode)
+(require 'dap-unity)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
