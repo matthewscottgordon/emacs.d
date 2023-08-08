@@ -51,7 +51,7 @@
 (global-set-key (kbd "C-c o") 'ace-window)
 
 (setq-default tab-width 4)
-(setq-default indent-tab-mode nil)
+(setq-default indent-tabs-mode nil)
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
@@ -182,8 +182,6 @@
 (add-hook 'c-mode-hook `lsp)
 (add-hook 'c++-mode-hook `lsp)
 (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
-
-(setq cmake-tab-width 4)
 
 (add-hook 'c++-mode-hook (lambda () (load "mg-c++-mock-interface")))
 
