@@ -123,19 +123,6 @@
 ; This should use rust-analyser as the language server, not rls
 (use-package rustic)
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Swift
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; This should use rust-analyser as the language server, not rls
-(use-package lsp-sourcekit
-  :after lsp-mode
-  :config
-  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
-(use-package swift-mode
-  :hook (swift-mode . (lambda () (lsp))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Typescript and React
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -168,13 +155,6 @@
 (add-hook 'typescript-mode-hook
           (lambda () (setq indent-tabs-mode nil)))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Svelte
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package svelte-mode)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C, C++, CMake
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -184,27 +164,6 @@
 (add-hook 'c-mode-common-hook (lambda () (linum-mode 1)))
 
 (add-hook 'c++-mode-hook (lambda () (load "mg-c++-mock-interface")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C# & Unity Editor
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; If it asks about an available LSP server, enter "omnisharp"
-(use-package csharp-mode
-  :init
-  (defun my/csharp-mode-hook ()
-    (setq-local lsp-auto-guess-root t)
-    (lsp))
-  (add-hook 'csharp-mode-hook #'my/csharp-mode-hook)
-  (add-hook 'csharp-mode-hook
-			(lambda () (setq indent-tabs-mode nil))))
-
-(straight-use-package
- '(unity :type git :host github :repo "elizagamedev/unity.el"))
-(add-hook 'after-init-hook #'unity-mode)
-
-(use-package dap-mode)
-(require 'dap-unity)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OpenGL
